@@ -9,13 +9,27 @@
 /* Begin PBXFileReference section */
 		2321F51F28E60CAE00ED54AF /* Demo_app_test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Demo_app_test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2321F52028E60CEF00ED54AF /* week3_VariableDemo_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week3_VariableDemo_DEVING.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		2321F52128E60DB800ED54AF /* week5_demos.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week5_demos.playground; sourceTree = "<group>"; };
+		2321F52128E60DB800ED54AF /* week5_demos.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week5_demos.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2321F52228E60E4000ED54AF /* week7waltah.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week7waltah.playground; sourceTree = "<group>"; };
+		2321F52328E60E4000ED54AF /* week7_LAB_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week7_LAB_DEVING.playground; sourceTree = "<group>"; };
+		2321F52428E60E4000ED54AF /* Week6_Blackhawks_Demo_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Week6_Blackhawks_Demo_DEVING.playground; sourceTree = "<group>"; };
+		2321F52528E60E4000ED54AF /* week6_Critical_thinking_demo_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week6_Critical_thinking_demo_DEVING.playground; sourceTree = "<group>"; };
+		2321F52628E60E4000ED54AF /* wk4_crtklthinking_DevingG.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = wk4_crtklthinking_DevingG.playground; sourceTree = "<group>"; };
+		2321F52728E60E4000ED54AF /* wk4_calculatordemo_DevinG.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = wk4_calculatordemo_DevinG.playground; sourceTree = "<group>"; };
+		2321F52828E60E4000ED54AF /* week7_FibanachiLab_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week7_FibanachiLab_DEVING.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		2321F51828E60C8400ED54AF = {
 			isa = PBXGroup;
 			children = (
+				2321F52428E60E4000ED54AF /* Week6_Blackhawks_Demo_DEVING.playground */,
+				2321F52528E60E4000ED54AF /* week6_Critical_thinking_demo_DEVING.playground */,
+				2321F52828E60E4000ED54AF /* week7_FibanachiLab_DEVING.playground */,
+				2321F52328E60E4000ED54AF /* week7_LAB_DEVING.playground */,
+				2321F52228E60E4000ED54AF /* week7waltah.playground */,
+				2321F52728E60E4000ED54AF /* wk4_calculatordemo_DevinG.playground */,
+				2321F52628E60E4000ED54AF /* wk4_crtklthinking_DevingG.playground */,
 				2321F52128E60DB800ED54AF /* week5_demos.playground */,
 				2321F52028E60CEF00ED54AF /* week3_VariableDemo_DEVING.playground */,
 				2321F51F28E60CAE00ED54AF /* Demo_app_test.playground */,
