@@ -25,7 +25,7 @@ print("-------------------------------------------")
 
 //part two will randomly order what i need to bring to school every day randomly, so its different every time (harder to forget and miss)
 
-for item in schoolNecesities{
+for _ in schoolNecesities{
     let random_Selector = Int.random(in: 0...5)
     print("Dont forget the \(schoolNecesities[random_Selector]), You'll Regret it")
     
