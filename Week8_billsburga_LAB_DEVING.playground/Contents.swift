@@ -22,6 +22,7 @@ enum Prices:Double{
     case smallOrder = 5.99
     case entreStandard = 7.99
     case entredeluxe = 9.99
+    
 }
 var foodWitPrices: Dictionary<String, Double> =  [Menu.BobCheeseBurger.rawValue:Prices.smallOrder.rawValue, Menu.BobBurger.rawValue:Prices.middlePrice.rawValue, Menu.LargeFries.rawValue:Prices.middlePrice.rawValue, Menu.SmallFries.rawValue:Prices.cheapest.rawValue, Menu.DoubleBobCheeseBurger.rawValue:Prices.entreStandard.rawValue, Menu.DeluxeBobBurger.rawValue:Prices.entredeluxe.rawValue, Menu.JalapenoBobBurger.rawValue:Prices.entreStandard.rawValue, Menu.DeluxeDoubleBobBurger.rawValue:Prices.entredeluxe.rawValue, Menu.CaliforniaBobBurger.rawValue:Prices.entreStandard.rawValue, Menu.LargeSoda.rawValue:Prices.middlePrice.rawValue, Menu.MediumSoda.rawValue:Prices.lesscheap.rawValue]
 
@@ -47,13 +48,14 @@ print("Welcome To Bobs Burgeria, Heres The Menu:")
 print(foodWitPrices) //prints menu with prices attached
 
 var order1 = OrderFood(customerOrder: ["BobCheeseBurger","SmallFries","JalapenoBobBurger","CaliforniaBobBurger"])
-print("Order 1 Costs \(order1.makeOrder())")
+print("Order 1 Costs $\(order1.makeOrder())")
 
 var order2 = OrderFood()
-print("Order 2 Costs \(order2.makeOrder())")
+print("Order 2 Costs $\(order2.makeOrder())")
 
 var order3 = OrderFood(customerOrder: ["JalapenoBobBurger", "LargeSoda", "LargeFries","ChocolateShake","BobBurger"])
-print("Order 1 Costs \(order3.makeOrder())")
+print("Order 3 Costs $\(order3.makeOrder())")
 
-
+var order4 = OrderFood(customerOrder: ["SmallFries", "DeluxeBobBurger", "JalapenoBobBurger"])
+print("order 4 costs $\(order4.makeOrder())")
 
