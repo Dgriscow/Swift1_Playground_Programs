@@ -2,15 +2,15 @@ import UIKit
 import Foundation
 
 enum Menu: String, CaseIterable { //from docs.swift.org
-    case BobCheeseBurger
-    case BobBurger
+    case BillCheeseBurger
+    case BillBurger
     case LargeFries
     case SmallFries
-    case DoubleBobCheeseBurger
-    case DeluxeBobBurger
-    case JalapenoBobBurger
-    case DeluxeDoubleBobBurger
-    case CaliforniaBobBurger
+    case DoubleBillCheeseBurger
+    case DeluxeBillBurger
+    case JalapenoBillBurger
+    case DeluxeDoubleBillBurger
+    case CaliforniaBillBurger
     case LargeSoda
     case MediumSoda
 }
@@ -24,7 +24,7 @@ enum Prices:Double{
     case entredeluxe = 9.99
     
 }
-var foodWitPrices: Dictionary<String, Double> =  [Menu.BobCheeseBurger.rawValue:Prices.smallOrder.rawValue, Menu.BobBurger.rawValue:Prices.middlePrice.rawValue, Menu.LargeFries.rawValue:Prices.middlePrice.rawValue, Menu.SmallFries.rawValue:Prices.cheapest.rawValue, Menu.DoubleBobCheeseBurger.rawValue:Prices.entreStandard.rawValue, Menu.DeluxeBobBurger.rawValue:Prices.entredeluxe.rawValue, Menu.JalapenoBobBurger.rawValue:Prices.entreStandard.rawValue, Menu.DeluxeDoubleBobBurger.rawValue:Prices.entredeluxe.rawValue, Menu.CaliforniaBobBurger.rawValue:Prices.entreStandard.rawValue, Menu.LargeSoda.rawValue:Prices.middlePrice.rawValue, Menu.MediumSoda.rawValue:Prices.lesscheap.rawValue]
+var foodWitPrices: Dictionary<String, Double> =  [Menu.BillCheeseBurger.rawValue:Prices.smallOrder.rawValue, Menu.BillBurger.rawValue:Prices.middlePrice.rawValue, Menu.LargeFries.rawValue:Prices.middlePrice.rawValue, Menu.SmallFries.rawValue:Prices.cheapest.rawValue, Menu.DoubleBillCheeseBurger.rawValue:Prices.entreStandard.rawValue, Menu.DeluxeBillBurger.rawValue:Prices.entredeluxe.rawValue, Menu.JalapenoBillBurger.rawValue:Prices.entreStandard.rawValue, Menu.DeluxeDoubleBillBurger.rawValue:Prices.entredeluxe.rawValue, Menu.CaliforniaBillBurger.rawValue:Prices.entreStandard.rawValue, Menu.LargeSoda.rawValue:Prices.middlePrice.rawValue, Menu.MediumSoda.rawValue:Prices.lesscheap.rawValue]
 
 struct OrderFood { //structs act as a simpler form of classes, they dont have inheritence, and also dont feature self refrencing, but it can be usefull.
     var customerOrder:[String]? = [] //an optinal array because in case the menu is empty it can be nil, and an array because it makes it more interactive and simplified to make different orders
@@ -44,18 +44,19 @@ struct OrderFood { //structs act as a simpler form of classes, they dont have in
     }
 }
 //------------------------------------------------------------------------------------------------
-print("Welcome To Bobs Burgeria, Heres The Menu:")
+print("Welcome To Bills Burgeria, Heres The Menu:")
 print(foodWitPrices) //prints menu with prices attached
 
-var order1 = OrderFood(customerOrder: ["BobCheeseBurger","SmallFries","JalapenoBobBurger","CaliforniaBobBurger"])
+var order1 = OrderFood(customerOrder: ["BillCheeseBurger","SmallFries","JalapenoBillBurger","CaliforniaBillBurger"])
 print("Order 1 Costs $\(order1.makeOrder())")
 
 var order2 = OrderFood()
 print("Order 2 Costs $\(order2.makeOrder())")
 
-var order3 = OrderFood(customerOrder: ["JalapenoBobBurger", "LargeSoda", "LargeFries","ChocolateShake","BobBurger"])
+var order3 = OrderFood(customerOrder: ["JalapenoBillBurger", "LargeSoda", "LargeFries","ChocolateShake","BillBurger"])
 print("Order 3 Costs $\(order3.makeOrder())")
 
-var order4 = OrderFood(customerOrder: ["SmallFries", "DeluxeBobBurger", "JalapenoBobBurger"])
-print("order 4 costs $\(order4.makeOrder())")
+var order4 = OrderFood(customerOrder: ["JalapenoBillBurger", "LargeFries", "DeluxeBillBurger"])
+print("Order 4 Costs $\(order4.makeOrder())")
+
 
