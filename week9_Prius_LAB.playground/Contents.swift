@@ -34,10 +34,6 @@ class BuyAPrius {
         case priuslimited = 33795
         case NightShadeFWD = 29545
         case NightShadeAWD = 30675
-
-        
-        
-        
     }
     
     enum XLEPackagesPrices:Double{
@@ -380,7 +376,7 @@ class BuyAPrius {
                 }
             }
         }
-        return "You've Selected the \(self.finalModel) with a \(self.finalEngine) engine, with a \(self.colorEXT) exterior with an interior of \(self.colorINT). The Final Cost is: $\(self.totalcost)"
+        return "You've Selected the \(self.finalModel) with a \(self.finalEngine) engine, with a \(self.colorEXT) exterior with an interior of \(self.colorINT) with the \(self.packages ?? "none") package with \(self.accessories!) The Final Cost is: $\(self.totalcost)"
     }
     
     
