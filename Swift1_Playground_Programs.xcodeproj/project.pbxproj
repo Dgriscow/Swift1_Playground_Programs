@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		231B887428F4AA480048F39F /* week9_Prius_LAB.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week9_Prius_LAB.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2321F51F28E60CAE00ED54AF /* Demo_app_test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Demo_app_test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2321F52028E60CEF00ED54AF /* week3_VariableDemo_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week3_VariableDemo_DEVING.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2321F52128E60DB800ED54AF /* week5_demos.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week5_demos.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -24,6 +25,7 @@
 		2321F51828E60C8400ED54AF = {
 			isa = PBXGroup;
 			children = (
+				231B887428F4AA480048F39F /* week9_Prius_LAB.playground */,
 				23631A8628EB6A96009F3CA4 /* Week8_billsburga_LAB_DEVING.playground */,
 				2321F52428E60E4000ED54AF /* Week6_Blackhawks_Demo_DEVING.playground */,
 				2321F52528E60E4000ED54AF /* week6_Critical_thinking_demo_DEVING.playground */,
