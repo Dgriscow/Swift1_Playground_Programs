@@ -34,10 +34,6 @@ class BuyAPrius {
         case priuslimited = 33795
         case NightShadeFWD = 29545
         case NightShadeAWD = 30675
-
-        
-        
-        
     }
     
     enum XLEPackagesPrices:Double{
@@ -70,33 +66,38 @@ class BuyAPrius {
             self.finalEngine = "1.8Cyl-4L FWD"
             self.packages = "Standard"
             
-            //color tester and checker
-            if self.colorEXT != "Eletric Storm Blue" || self.colorEXT != "Supersonic Red" || self.colorEXT != "Wind Chill Pearl" || self.colorEXT != "Classic Silver Metallic" || self.colorEXT != "Magnetic Gray Metallic" || self.colorEXT != "Midnight Black Metallic" || self.colorEXT != "Sea Glass Pearl"{
-                
-                print(" \(self.colorEXT) Error")
-                self.colorEXT = "STANDARD"
-                
-            } else {
-                for color in colorsEXTOptions.keys{
-                    if self.colorEXT == color{
-                        self.totalcost += colorsEXTOptions[color]!
-                    }
-                }
+            //ext
+            if self.colorEXT == "Eletric Storm Blue"{
+                self.totalcost += colorsEXTOptions[self.colorEXT]!
+                print("blue")
+            } else if self.colorEXT == "Supersonic Red"{
+                self.totalcost += colorsEXTOptions[self.colorEXT]!
+                print("red")
+            } else if self.colorEXT == "Wind Chill Pearl"{
+                self.totalcost += colorsEXTOptions[self.colorEXT]!
+            } else if self.colorEXT == "Midnight Black Metallic"{
+                self.totalcost += colorsEXTOptions[self.colorEXT]!
+            } else if self.colorEXT == "Sea Glass Pearl"{
+                self.totalcost += colorsEXTOptions[self.colorEXT]!
+            }else {
+                print("Color Is not Available, set to standard")
+                self.colorEXT = "Standard"
             }
             
-            if self.colorINT != "Black Fabric" || self.colorINT != "MoonStone Fabric"{
-                print(" \(self.colorINT) Error")
-                self.colorINT = "STANDARD"
-            } else {
-                for color2 in colorsINTOptions.keys{
-                    if self.colorEXT == color2{
-                        self.totalcost += colorsINTOptions[color2]!
-                    }
-                }
-            }
+            //int
+            if self.colorINT == "Moonstone Fabric"{
+                self.totalcost += colorsINTOptions[self.colorINT]!
+                
+            } else if self.colorINT == "Black Fabric"{
+                self.totalcost += colorsINTOptions[self.colorINT]!
             
-            //copy top part for interior
-            //have complex package code into par
+            } else if self.colorINT == "Harvest Beige Fabric"{
+                self.totalcost += colorsINTOptions[self.colorINT]!
+
+            }else {
+                print("Color Is not Available, set to standard")
+                self.colorINT = "Standard"
+            }
             
             
         } else if self.model == 2{
@@ -359,7 +360,7 @@ class BuyAPrius {
 }
 
 
-var car1 = BuyAPrius(model: 1, engine: "standard", colorEXT: "Harvest Beige Fabric", colorINT: "b", accessories: [], packages: "")
+var car1 = BuyAPrius(model: 1, engine: "standard", colorEXT: "Eletric Storm Blue", colorINT: "b", accessories: [], packages: "")
 print(car1.calculatePrice())
 var car4 = BuyAPrius(model: 4, engine: "FWD", colorEXT: "Supersonic Red", colorINT: "white", accessories: ["Paint Protection Film"], packages: "Premium Convenience Package")
 print(car4.calculatePrice())
@@ -378,10 +379,4 @@ var car7 = BuyAPrius(model: 7, engine: "standard", colorEXT: "Eletric Storm Blue
 print(car7.calculatePrice())
 var car8 = BuyAPrius(model: 8, engine: "standard", colorEXT: "Wind Chill Pearl", colorINT: "Black Fabric", accessories: ["Aero Side Splitter", "All-Weather Floor Liner"], packages: "select for me")
 print(car8.calculatePrice())
-
-
-
-
-
-//this program is done with tons of overthinking, only after completion thats when I saw ways to simplify it.
 
