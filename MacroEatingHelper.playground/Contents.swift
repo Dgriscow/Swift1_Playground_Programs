@@ -11,7 +11,13 @@ class DetermineMacros{
     var heightInches:Double
     var weight:Double
     var activityLevel:Double
-
+    var goal:String //except only "gain" "loss" "remain"
+    
+    //internal class variables
+    var REE:Double = 0
+    var protein:Double = 0
+    var fat:Double = 0
+    var carbs:Double = 0
     //gets TDEE, 1 will be REE X 1.375, 2 will be REE X 1.55, 3 will be REE X 1.725]
     var ActivityMultiplier:Double{
         if activityLevel == 1{
@@ -24,10 +30,7 @@ class DetermineMacros{
             return 1.375 //if a invalid number is put in, then its automatically set to light workout
         }
     }
-    
 
-    var goal:String //except only "gain" "loss" "remain"
-    var REE:Double = 0
 
     init(age:Int, gender:Int, heightFeet:Double, heightInches:Double, weight:Double, activityLevel:Double, goal:String){
         self.age = age
@@ -41,19 +44,19 @@ class DetermineMacros{
     
     
 
-    
+    //calculated variable (stored elsewhere due to using self.)
     var cmheight: Double {
         return (30.48 * self.heightFeet) + (2.54 * self.heightInches)
     }
     
     func calculateREE() -> Double{ //resting energy expenditure
         if self.gender == 1{ //male
-            self.REE = (10 * self.weight) + (6.25 * self.cmheight)
-            self.REE = self.REE - (5 * Double(self.age)) + 5
+            REE = 10 * self.weight + 6.25 * cmheight
+            REE = REE - 5 * Double(self.age) + 5
             
         } else if self.gender == 2{ //female
-            self.REE = (10 * self.weight) + (6.25 * self.cmheight)
-            self.REE = self.REE - (5 * Double(self.age)) - 161
+            REE = 10 * self.weight + 6.25 * cmheight
+            REE = self.REE - 5 * Double(self.age) - 161
     
         }
         return self.REE
@@ -68,7 +71,13 @@ class DetermineMacros{
         }
         return TDEE
     }
-    var Calories:Double = calculatedMacroCalorieGoal()
+    
+    func proteinCalculator() -> Int{
+        var protein = self.weight * 0.825
+        return Int(protein)
+    }
+    
+    
 
      
     
@@ -78,9 +87,10 @@ class DetermineMacros{
 
 
 
-var x = DetermineMacros(age: 21, gender: 1, heightFeet: 5, heightInches: 8, weight: 170, activityLevel: 1, goal: "loss")
-print(x.calculateREE())
-print(x.ActivityMultiplier)
-print(x.Calories)
+var x = DetermineMacros(age: 20, gender: 1, heightFeet: 5, heightInches: 8, weight: 150, activityLevel: 2, goal: "gain")
 
+print("\(x.calculateREE()) REE")
+print(x.ActivityMultiplier)
+print("\(x.calculatedMacroCalorieGoal()) Calories")
+print(x.proteinCalculator())
 print("please just print this")

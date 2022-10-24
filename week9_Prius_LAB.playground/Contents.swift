@@ -22,6 +22,7 @@ class BuyAPrius {
         self.colorINT = colorINT
         self.accessories = accessories
         self.packages = packages
+        
     }
 
 
