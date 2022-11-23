@@ -1,86 +1,62 @@
-import UIKit
 import Foundation
 
+let defaults = UserDefaults.standard
+defaults.removeObject(forKey:"MacroDailyTracker")
+if defaults.object(forKey: "MacroDailyTracker") != nil{
+    print("exists")
+} else {
+    print("does not exist")
+}
 
-print("please just print this")
+func saveMacrosToDefaults(currProtein:Double, currCarbs:Double, currFat:Double){
+    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
+    let macroUpdater = defaultUserStorage.dictionary(forKey: "MacroDailyTracker")
+    let curdefaultProtein: Any? = macroUpdater!["currProtein"]
+    
+    //add part
+    if curdefaultProtein != nil{
+        print("nil")
 
-class DetermineMacros{
-    var age:Int
-    var gender:Int //man == 1 female == 2
-    var heightFeet:Double
-    var heightInches:Double
-    var weight:Double
-    var activityLevel:Double
-
-    //gets TDEE, 1 will be REE X 1.375, 2 will be REE X 1.55, 3 will be REE X 1.725]
-    var ActivityMultiplier:Double{
-        if activityLevel == 1{
-            return 1.375
-        } else if activityLevel == 2{
-            return 1.55
-        } else if activityLevel == 3{
-            return 1.725
-        } else{
-            return 1.375 //if a invalid number is put in, then its automatically set to light workout
-        }
     }
+    let macroDictionary = ["currProtein":currProtein, "currCarbs":currCarbs, "currFat":currFat]
+    defaultUserStorage.set(macroDictionary, forKey: "MacroDailyTracker")
     
-
-    var goal:String //except only "gain" "loss" "remain"
-    var REE:Double = 0
-
-    init(age:Int, gender:Int, heightFeet:Double, heightInches:Double, weight:Double, activityLevel:Double, goal:String){
-        self.age = age
-        self.gender = gender
-        self.heightFeet = heightFeet
-        self.heightInches = heightFeet
-        self.weight = weight
-        self.activityLevel = activityLevel
-        self.goal = goal  //goal will be a percentage value (calorie deficits)
-    }
-    
-    
-
-    
-    var cmheight: Double {
-        return (30.48 * self.heightFeet) + (2.54 * self.heightInches)
-    }
-    
-    func calculateREE() -> Double{ //resting energy expenditure
-        if self.gender == 1{ //male
-            self.REE = (10 * self.weight) + (6.25 * self.cmheight)
-            self.REE = self.REE - (5 * Double(self.age)) + 5
-            
-        } else if self.gender == 2{ //female
-            self.REE = (10 * self.weight) + (6.25 * self.cmheight)
-            self.REE = self.REE - (5 * Double(self.age)) - 161
-    
-        }
-        return self.REE
-    }
-    
-    func calculatedMacroCalorieGoal() -> Double{
-        var TDEE:Double = self.REE * self.ActivityMultiplier
-        if self.goal == "loss"{
-            TDEE = TDEE - (TDEE * 0.20)
-        } else if self.goal == "gain"{
-            TDEE = TDEE + (TDEE * 0.20)
-        }
-        return TDEE
-    }
-    var Calories:Double = calculatedMacroCalorieGoal()
-
-     
-    
-    
-    
+    print("inserted into default storage")
+    //.set(*dictionary Name*, forKey: "*what goes here is the name of the dictionary, so you can retrive it later from userdefaults.
 }
 
 
+//
+//func saveMacrosToDefaults(currProtein:Double, currCarbs:Double, currFat:Double){
+//    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
+//
+//    if defaultUserStorage.object(forKey: "MacroDailyTracker") != nil{
+//        print("exists")
+//        let macroUpdater = defaultUserStorage.dictionary(forKey: "MacroDailyTracker")
+//        print(macroUpdater!)
+//        print(macroUpdater!["currProtein"] as Any)
+//
+//
+//        let macroDictionary = ["currProtein":currProtein, "currCarbs":currCarbs, "currFat":currFat]
+//    } else {
+//        print("does not exist")
+//        let macroDictionary = ["currProtein":currProtein, "currCarbs":currCarbs, "currFat":currFat]
+//        defaultUserStorage.set(macroDictionary, forKey: "MacroDailyTracker")
+//    }
+//
+////.set(*dictionary Name*, forKey: "*what goes here is the name of the dictionary, so you can retrive it later from userdefaults.
+//}
 
-var x = DetermineMacros(age: 21, gender: 1, heightFeet: 5, heightInches: 8, weight: 170, activityLevel: 1, goal: "loss")
-print(x.calculateREE())
-print(x.ActivityMultiplier)
-print(x.Calories)
 
-print("please just print this")
+func readMacrosFromDefault() -> [String: Any]{
+    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
+    let MacroTrackerDictionary = defaultUserStorage.dictionary(forKey: "MacroDailyTracker")
+    
+    return MacroTrackerDictionary!
+}
+saveMacrosToDefaults(currProtein: 44, currCarbs: 32, currFat: 32)
+let x = readMacrosFromDefault()
+print(x, "bep")
+//saveMacrosToDefaults(currProtein: 126, currCarbs: 289, currFat: 89)
+
+readMacrosFromDefault()

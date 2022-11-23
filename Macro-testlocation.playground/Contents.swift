@@ -1,6 +1,23 @@
 import UIKit
 import Foundation
 
+func saveMacrosToDefaults(currProtein:Double, currCarbs:Double, currFat:Double){
+    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
+    let macroDictionary = ["currProtein":currProtein, "currCarbs":currCarbs, "currFat":currFat]
+    defaultUserStorage.set(macroDictionary, forKey: "MacroDailyTracker")
+    
+    print("inserted into default storage")
+    //.set(*dictionary Name*, forKey: "*what goes here is the name of the dictionary, so you can retrive it later from userdefaults.
+}
+
+
+func readMacrosFromDefault() -> [String: Any]{
+    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
+    let MacroTrackerDictionary = defaultUserStorage.dictionary(forKey: "MacroDailyTracker")
+    
+    return MacroTrackerDictionary!
+}
+
 
 print("please just print this")
 
@@ -30,8 +47,8 @@ enum GoalCategories{
 
 enum GeneratorActions{
     case userSelectedGainLevel
-    case intermidiate
-    case active
+    case selectFoodClass
+    case RandomFood
 }
 
 struct FoodStats{
@@ -41,9 +58,11 @@ struct FoodStats{
     var CarbsWeight:Double
     var GoalCategory:GoalCategories
     var ServingSize:String
+    var Recipie:String?  //Work on this next, the optional will be if a recipie is present, print out the recipie, basically if its not null.
 }
 
 let BigMac = FoodStats(FoodName: "Big Mac", ProteinWeight: 26, FatWeight: 33, CarbsWeight: 44, GoalCategory: GoalCategories.gainWeight, ServingSize: "1 Burger")
+
 let nutragrain = FoodStats(FoodName: "Nutri-Grain", ProteinWeight: 1.7, FatWeight: 3.2, CarbsWeight: 26, GoalCategory: GoalCategories.maintainWeight, ServingSize: "1 Bar")
 
 let mozzerellaSticks = FoodStats(FoodName: "Farm Rich Mozzarella Sticks", ProteinWeight: 12, FatWeight: 15, CarbsWeight: 23, GoalCategory: GoalCategories.gainWeight, ServingSize: "3 Sticks")
@@ -80,8 +99,10 @@ let BrownRice = FoodStats(FoodName: "Brown Rice", ProteinWeight: 5, FatWeight: 1
 
 let scrambledEgg = FoodStats(FoodName: "Scrambled Eggs", ProteinWeight: 6.1, FatWeight: 6.7, CarbsWeight: 1, GoalCategory: GoalCategories.gainMuscle, ServingSize: "1 Large")
 
+let instagramPizzaThing = FoodStats(FoodName: "pizza thing", ProteinWeight: 12, FatWeight: 32, CarbsWeight: 10, GoalCategory: GoalCategories.loseWeight, ServingSize: "1 za", Recipie: "https:jimbojon.com")
 
-var foodcollection = [BigMac, nutragrain, mozzerellaSticks, BuffaloChicken, kindDCN, ramenNoodles, turkeySandwhich, hamSandwhich, BLT, Egg, cheesefries, jalapenoCheddarChips, chickentenders, chickenBreast, chickenNuggets, Ribeye, milk, BrownRice, scrambledEgg]
+
+var foodcollection = [BigMac, nutragrain, mozzerellaSticks, BuffaloChicken, kindDCN, ramenNoodles, turkeySandwhich, hamSandwhich, BLT, Egg, cheesefries, jalapenoCheddarChips, chickentenders, chickenBreast, chickenNuggets, Ribeye, milk, BrownRice, scrambledEgg, instagramPizzaThing]
 
 //toast-maintain
 //var toast = FoodStats(FoodName: <#T##String#>, ProteinWeight: <#T##Double#>, FatWeight: <#T##Double#>, CarbsWeight: <#T##Double#>, GoalCategory: GoalCategories.gainWeight, ServingSize: <#T##String#>)
@@ -170,7 +191,6 @@ class DetermineMacros{
             TDEE = p2
         case .maintain:
             Swift.print("No Change")
-                
         }
     }
         
@@ -230,18 +250,86 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
         self.userGoal = userGoal
     }
     
-    func generateReccomendedFood(requestedtype:GoalCategories = GoalCategories.maintainWeight){ //function shuffles food collection when called, and runs through the shuffled list of food for matching foods
-        foodcollection.shuffle()
+    func generateReccomendedFood(requestedtype:GeneratorActions = GeneratorActions.userSelectedGainLevel, foodTypeRequest:GoalCategories=GoalCategories.maintainWeight){ //function shuffles food collection when called, and runs through the shuffled list of food for matching foods
+        rmname = "placeholder"
+        rmFat = 0
+        rmCarbs = 0
+        rmProtein = 0
         
-        //rm is the variable storage for when the for loop and if statement is met
-        for food in foodcollection{
-            if food.GoalCategory == requestedtype{
+        let differentChoices = requestedtype
+        
+        switch differentChoices{
+        case .userSelectedGainLevel:
+            foodcollection.shuffle()
+            
+            //rm is the variable storage for when the for loop and if statement is met
+            for food in foodcollection{
+                if food.GoalCategory == self.userGoal{
+                    print("_____________________________________________")
+                    print("Your reccomended food item is: \(food.FoodName)")
+                    print("The Macros in this food are: ")
+                    print("Fat: \(food.FatWeight)")
+                    print("Carbs: \(food.CarbsWeight)")
+                    print("Protein: \(food.ProteinWeight)")
+                    print("Serving Size: \(food.ServingSize)")
+                    print("Helps With: \(food.GoalCategory)")
+                    if let recipie = food.Recipie{
+                        print("Recipie: \(recipie)")
+                    }
+                    print("Do you want this item? call eatlastItem to add this item, or recall to reroll")
+                    print("_____________________________________________")
+                    rmname = food.FoodName
+                    rmFat = food.FatWeight
+                    rmCarbs = food.CarbsWeight
+                    rmProtein = food.ProteinWeight
+                    break
+                    //variables x y z act as storage for the randomly generated food, and returned once avalible (outside of the for loops and if statements)
+                }
+            }
+        case .selectFoodClass:
+            foodcollection.shuffle()
+            
+            //rm is the variable storage for when the for loop and if statement is met
+            for food in foodcollection{
+                if food.GoalCategory == foodTypeRequest{
+                    print("_____________________________________________")
+                    print("Your reccomended food item is: \(food.FoodName)")
+                    print("The Macros in this food are: ")
+                    print("Fat: \(food.FatWeight)")
+                    print("Carbs: \(food.CarbsWeight)")
+                    print("Protein: \(food.ProteinWeight)")
+                    print("Serving Size: \(food.ServingSize)")
+                    print("Helps With: \(food.GoalCategory)")
+                    if let recipie = food.Recipie{
+                        print("Recipie: \(recipie)")
+                    }
+                    print("Do you want this item? call eatlastItem to add this item, or recall to reroll")
+                    print("_____________________________________________")
+                    rmname = food.FoodName
+                    rmFat = food.FatWeight
+                    rmCarbs = food.CarbsWeight
+                    rmProtein = food.ProteinWeight
+                    break
+                    //variables x y z act as storage for the randomly generated food, and returned once avalible (outside of the for loops and if statements)
+                }
+            }
+        case .RandomFood:
+            foodcollection.shuffle()
+            
+            //rm is the variable storage for when the for loop and if statement is met
+            for food in foodcollection{
+                
                 print("_____________________________________________")
                 print("Your reccomended food item is: \(food.FoodName)")
                 print("The Macros in this food are: ")
                 print("Fat: \(food.FatWeight)")
                 print("Carbs: \(food.CarbsWeight)")
                 print("Protein: \(food.ProteinWeight)")
+                print("Serving Size: \(food.ServingSize)")
+                print("Helps With: \(food.GoalCategory)")
+                if let recipie = food.Recipie{
+                    print("Recipie: \(recipie)")
+                }
                 print("Do you want this item? call eatlastItem to add this item, or recall to reroll")
                 print("_____________________________________________")
                 rmname = food.FoodName
@@ -249,19 +337,20 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
                 rmCarbs = food.CarbsWeight
                 rmProtein = food.ProteinWeight
                 break
-                //variables x y z act as storage for the randomly generated food, and returned once avalible (outside of the for loops and if statements)
-            }
+                    //variables x y z act as storage for the randomly generated food, and returned once avalible (outside of the for loops and if statements)
+                }
         }
+        
+        
     }
     
-    func eatlastItem(requestType: GoalCategories = GoalCategories.maintainWeight){  //simulates eating one of the reccomended food
+    func eatlastItem(){  //simulates eating one of the reccomended food
         print("you choose the \(rmname)")
-
         fatcount += rmFat
         carbCount += rmCarbs
         proteinCount += rmProtein
+        saveMacrosToDefaults(currProtein: proteinCount, currCarbs: carbCount, currFat: fatcount)
         checkMacroLimit()
-        
     }
     
     func confirmSelection(choice: Bool){
@@ -278,25 +367,29 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
         print("Your current carb count so far is: \(carbCount)")
         print("Your current fat count so far is: \(fatcount)")
         print("Your current protein count so far is: \(proteinCount)")
+        let x = readMacrosFromDefault()
+        print(x, "x")
         print("_____________________________________________")
-
+        
+        
+        
         
         if carbCount >= self.userMax_Carbs{
             print("at or above max carbs")
-        } else if carbCount > (0.40 * self.userMax_Carbs){
-            print("above 40% of daily carb max")
+        } else if carbCount > (0.50 * self.userMax_Carbs){
+            print("above half of daily carb max")
         }
         
         if fatcount >= self.userMax_FAT{
             print("at or above max fat")
-        } else if fatcount > (0.40 * self.userMax_FAT){
-            print("above 40% of daily fat")
+        } else if fatcount > (0.50 * self.userMax_FAT){
+            print("above half of daily fat")
         }
         
         if proteinCount >= self.userMax_Protein{
             print("at or above max protein")
-        } else if proteinCount > (0.40 * self.userMax_Protein){
-            print("above 40% of daily protein max")
+        } else if proteinCount > (0.50 * self.userMax_Protein){
+            print("above half of daily protein max")
         }
         
     }
@@ -304,7 +397,7 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
 
 
 //functional test of both classes
-let jeff = DetermineMacros(age: 29, gender: Gender.Male, heightFeet: 6, heightInches: 1, weight: 160, activityLevel: ActivityLevelMultiplier.active, goal: GOALS.maintain)
+let jeff = DetermineMacros(age: 21, gender: Gender.Male, heightFeet: 5, heightInches: 8, weight: 160, activityLevel: ActivityLevelMultiplier.active, goal: GOALS.gain)
 jeff.calculateALL()
 
 
@@ -312,16 +405,26 @@ jeff.calculateALL()
 let jeffEats = FoodPicker(userMax_TDEE: jeff.TDEE, userMax_FAT: jeff.Fat, userMax_Carbs: jeff.Carbs, userMax_Protein: jeff.Protein, userGoal: GoalCategories.gainMuscle)
 
 
-//
-jeffEats.generateReccomendedFood(requestedtype: GoalCategories.gainMuscle)
 
-jeffEats.eatlastItem()
-
-jeffEats.generateReccomendedFood(requestedtype: GoalCategories.gainWeight)
-
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
 jeffEats.eatlastItem()
 
 
 
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.eatlastItem()
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.eatlastItem()
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.eatlastItem()
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.eatlastItem()
 
-
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.selectFoodClass, foodTypeRequest: GoalCategories.gainWeight)
+jeffEats.eatlastItem()
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.eatlastItem()
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.eatlastItem()
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.eatlastItem()

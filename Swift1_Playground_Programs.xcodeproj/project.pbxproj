@@ -19,6 +19,7 @@
 		2321F52628E60E4000ED54AF /* wk4_crtklthinking_DevingG.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = wk4_crtklthinking_DevingG.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2321F52728E60E4000ED54AF /* wk4_calculatordemo_DevinG.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = wk4_calculatordemo_DevinG.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2321F52828E60E4000ED54AF /* week7_FibanachiLab_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = week7_FibanachiLab_DEVING.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		233FE05D291C1D2E00EE7D8C /* Macro-testlocation.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Macro-testlocation.playground"; path = "/Users/devingrischow/Library/Mobile Documents/com~apple~CloudDocs/Swift1_Playground_Programs/Macro-testlocation.playground"; sourceTree = "<absolute>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		23631A8628EB6A96009F3CA4 /* Week8_billsburga_LAB_DEVING.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Week8_billsburga_LAB_DEVING.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
@@ -26,6 +27,7 @@
 		2321F51828E60C8400ED54AF = {
 			isa = PBXGroup;
 			children = (
+				233FE05D291C1D2E00EE7D8C /* Macro-testlocation.playground */,
 				23198B4A28FDAB02002794EC /* MacroEatingHelper.playground */,
 				231B887428F4AA480048F39F /* week9_Prius_LAB.playground */,
 				23631A8628EB6A96009F3CA4 /* Week8_billsburga_LAB_DEVING.playground */,

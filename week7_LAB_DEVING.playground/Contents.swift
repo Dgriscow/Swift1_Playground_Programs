@@ -81,4 +81,4 @@ func calculatedTime(hourChange: Int, minChange: Int, aos: String) -> String{
     
     return returnedStatement
 }
-print(calculatedTime(hourChange: 5, minChange: 0, aos: "Add"))
+print(calculatedTime(hourChange: 5, minChange: 44, aos: "Add"))
