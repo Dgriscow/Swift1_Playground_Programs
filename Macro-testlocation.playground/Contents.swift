@@ -1,25 +1,54 @@
 import UIKit
 import Foundation
+//let defaults = UserDefaults.standard
+//defaults.removeObject(forKey:"DayMacroTracker")
+
+
+
+func readMacrosFromDefault() -> [String: Any]{
+    print("readin")
+    let date = Date()
+    let calender = Calendar.current
+    let d = Double(calender.component(.day, from: date))
+    let defaultSet: Dictionary<String, Double> = ["day":d,"currCarbs":0, "currFat":0, "currProtein":0]
+    
+    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
+    //let emptySetter: Dictionary<String, Double> = ["currProtein":0.0, "currCarbs":0.0, "currFat":0.0]
+    let MacroTrackerDictionary = defaultUserStorage.dictionary(forKey: "MacroDailyTracker") ?? defaultSet
+    return MacroTrackerDictionary
+}
+
 
 func saveMacrosToDefaults(currProtein:Double, currCarbs:Double, currFat:Double){
-    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
-    let macroDictionary = ["currProtein":currProtein, "currCarbs":currCarbs, "currFat":currFat]
-    defaultUserStorage.set(macroDictionary, forKey: "MacroDailyTracker")
+    print("writin")
+    let saveStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
+    
+    let UserDefaultReadDictionary = readMacrosFromDefault()
+    let previousDay:Double = (UserDefaultReadDictionary["day"]) as! Double
+    let lastProtein:Double = (UserDefaultReadDictionary["currProtein"]) as! Double
+    let lastCarbs:Double = (UserDefaultReadDictionary["currCarbs"]) as! Double
+    let lastFat:Double = (UserDefaultReadDictionary["currFat"]) as! Double
+    
+
+    let newProtein:Double = currProtein + lastProtein
+    let newCarbs:Double = currCarbs + lastCarbs
+    let newFat:Double = currFat + lastFat
+    
+    
+    
+    
+    
+    let macroDictionary = ["day":previousDay,"currCarbs":newCarbs, "currFat":newFat, "currProtein":newProtein]
+    saveStorage.set(macroDictionary, forKey: "MacroDailyTracker")
     
     print("inserted into default storage")
     //.set(*dictionary Name*, forKey: "*what goes here is the name of the dictionary, so you can retrive it later from userdefaults.
 }
 
-
-func readMacrosFromDefault() -> [String: Any]{
-    let defaultUserStorage = UserDefaults.standard //userdefaults is a data dictionary that stores small amounts of user settings/variables as long as the app is installed, it can easily store and save basic swift data types
-    let MacroTrackerDictionary = defaultUserStorage.dictionary(forKey: "MacroDailyTracker")
-    
-    return MacroTrackerDictionary!
-}
-
+//readMacrosFromDefault()
 
 print("please just print this")
+
 
 //enumerations for values that are to be already set and non negotiable
 enum GOALS{
@@ -252,9 +281,9 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
     
     func generateReccomendedFood(requestedtype:GeneratorActions = GeneratorActions.userSelectedGainLevel, foodTypeRequest:GoalCategories=GoalCategories.maintainWeight){ //function shuffles food collection when called, and runs through the shuffled list of food for matching foods
         rmname = "placeholder"
-        rmFat = 0
-        rmCarbs = 0
-        rmProtein = 0
+        rmFat = 0.0
+        rmCarbs = 0.0
+        rmProtein = 0.0
         
         let differentChoices = requestedtype
         
@@ -349,17 +378,9 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
         fatcount += rmFat
         carbCount += rmCarbs
         proteinCount += rmProtein
-        saveMacrosToDefaults(currProtein: proteinCount, currCarbs: carbCount, currFat: fatcount)
+        saveMacrosToDefaults(currProtein: rmProtein, currCarbs: rmCarbs, currFat: rmFat)
         checkMacroLimit()
-    }
-    
-    func confirmSelection(choice: Bool){
-        if choice == true{
-            tracker = true
-        }else {
-            tracker = false
-        }
-            
+        checkDailyMacroLimit()
     }
     
     func checkMacroLimit(){  //this function checks and reminds the user if their approaching their max carb limits
@@ -367,12 +388,6 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
         print("Your current carb count so far is: \(carbCount)")
         print("Your current fat count so far is: \(fatcount)")
         print("Your current protein count so far is: \(proteinCount)")
-        let x = readMacrosFromDefault()
-        print(x, "x")
-        print("_____________________________________________")
-        
-        
-        
         
         if carbCount >= self.userMax_Carbs{
             print("at or above max carbs")
@@ -391,8 +406,79 @@ class FoodPicker{  //randomly picks foods with user max protein and carbs and fa
         } else if proteinCount > (0.50 * self.userMax_Protein){
             print("above half of daily protein max")
         }
+        print("_____________________________________________")
+
         
     }
+    
+    func checkDailyMacroLimit(){  //this function checks and reminds the user if their approaching their max carb limits
+        
+        let MacroDictionaryReader = readMacrosFromDefault()
+        
+        let proteinTrack:Double = (MacroDictionaryReader["currProtein"]) as! Double
+        let carbTrack:Double = (MacroDictionaryReader["currCarbs"]) as! Double
+        let fatTrack:Double = (MacroDictionaryReader["currFat"]) as! Double
+        
+        print("__________________DAILY MACRO CHECKER______________________")
+        print("Your current carb count so far is: \(carbTrack)")
+        print("Your current fat count so far is: \(fatTrack)")
+        print("Your current protein count so far is: \(proteinTrack)")
+        
+        if carbTrack >= self.userMax_Carbs{
+            print("at or above max carbs")
+        } else if carbTrack > (0.50 * self.userMax_Carbs){
+            print("above half of daily carb max")
+        }
+        
+        if fatTrack >= self.userMax_FAT{
+            print("at or above max fat")
+        } else if fatTrack > (0.50 * self.userMax_FAT){
+            print("above half of daily fat")
+        }
+        
+        if proteinTrack >= self.userMax_Protein{
+            print("at or above max protein")
+        } else if proteinTrack > (0.50 * self.userMax_Protein){
+            print("above half of daily protein max")
+        }
+        print("____________________________________________________")
+    }
+    
+    func nextDayTrackTicker(){
+        let defaults = UserDefaults.standard
+        
+        var currentDayMacro = readMacrosFromDefault()
+        let emptyExample =
+        [
+            ["day":0,"currCarbs":0, "currFat":0, "currProtein":0]
+        ]
+        //old array
+        var macroDAYArrayloadedIn = defaults.array(forKey: "DayMacroTracker") ?? emptyExample //array of all past days
+        
+        print("\(currentDayMacro)\n Counting to New Day")
+        let oldDay = (currentDayMacro["day"]) as! Double
+        let oldProtein:Double = (currentDayMacro["currProtein"]) as! Double
+        let oldCarbs:Double = (currentDayMacro["currCarbs"]) as! Double
+        let oldFat:Double = (currentDayMacro["currFat"]) as! Double
+        
+        
+        
+        let newDictEntry = ["day":oldDay,"currCarbs":oldCarbs, "currFat":oldFat, "currProtein":oldProtein]
+        //append new day to every entry
+        macroDAYArrayloadedIn.insert(newDictEntry, at: 1)
+        defaults.set(macroDAYArrayloadedIn, forKey: "DayMacroTracker")
+        //print out every previous day entry so far
+        for key in macroDAYArrayloadedIn{
+            print("\(key["day"]!)\n")
+            print(type(of: key))
+        }
+        defaults.removeObject(forKey:"MacroDailyTracker")
+        print("Macros Have Been Wiped")
+        
+    }
+    
+    
+
 }
 
 
@@ -405,14 +491,12 @@ jeff.calculateALL()
 let jeffEats = FoodPicker(userMax_TDEE: jeff.TDEE, userMax_FAT: jeff.Fat, userMax_Carbs: jeff.Carbs, userMax_Protein: jeff.Protein, userGoal: GoalCategories.gainMuscle)
 
 
-
+//jeffEats.wipeDailyTracker()
 jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
 jeffEats.eatlastItem()
-
-
-
 jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
 jeffEats.eatlastItem()
+jeffEats.nextDayTrackTicker()
 jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
 jeffEats.eatlastItem()
 jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
