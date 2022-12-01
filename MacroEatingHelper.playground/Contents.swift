@@ -145,7 +145,15 @@ let DonMiguelBeefMiniTacos = FoodStats(FoodName: "Don Miguel Beef MiniTacos", Pr
 
 let bacon = FoodStats(FoodName: "Bacon", ProteinWeight: 3.1, FatWeight: 3.6, CarbsWeight: 0.1, GoalCategory: GoalCategories.gainMuscle, ServingSize: "1 Medium slice")
 
-var foodcollection = [BigMac, nutragrain, mozzerellaSticks, BuffaloChicken, kindDCN, ramenNoodles, turkeySandwhich, hamSandwhich, BLT, Egg, cheesefries, jalapenoCheddarChips, chickentenders, chickenBreast, chickenNuggets, Ribeye, milk, BrownRice, scrambledEgg, toast, tombStoneCheesePizza, tombStonePepperoniPizza, WhiteCastleChickenRings, DonMiguelBeefMiniTacos, bacon]
+let genericCheeseBurger = FoodStats(FoodName: "Generic Cheese Burger", ProteinWeight: 30, FatWeight: 29, CarbsWeight: 39, GoalCategory: GoalCategories.gainWeight, ServingSize: "1 Burger")
+
+let grannySmithApple = FoodStats(FoodName: "Granny Smith Apple", ProteinWeight: 0, FatWeight: 0, CarbsWeight: 22, GoalCategory: GoalCategories.loseWeight, ServingSize: "1 Apple")
+
+let redDeliciousApple = FoodStats(FoodName: "Red Delicious Apple", ProteinWeight: 0.5, FatWeight: 0.4, CarbsWeight: 28.4, GoalCategory: GoalCategories.loseWeight, ServingSize: "1 Medium Apple")
+
+let quickTurkeyWrap = FoodStats(FoodName: "Quick Turkey Wrap", ProteinWeight: 24.4, FatWeight: 3.5, CarbsWeight: 31.3, GoalCategory: GoalCategories.gainMuscle, ServingSize: "1 Wrap", Recipie: "https://www.calorieking.com/recipes/Chicken-Turkey-Fowl-and-Egg/Chicken-Turkey-Fowl-Dishes/Quick-Turkey-Wrap_Y2lkPTUmc2lkPTE5JnJpZD05ODImbWVhc3VyZT1pbXBlcmlhbCZzY2FsZT0wLjI1.html")
+
+var foodcollection = [BigMac, nutragrain, mozzerellaSticks, BuffaloChicken, kindDCN, ramenNoodles, turkeySandwhich, hamSandwhich, BLT, Egg, cheesefries, jalapenoCheddarChips, chickentenders, chickenBreast, chickenNuggets, Ribeye, milk, BrownRice, scrambledEgg, toast, tombStoneCheesePizza, tombStonePepperoniPizza, WhiteCastleChickenRings, DonMiguelBeefMiniTacos, bacon, genericCheeseBurger, grannySmithApple, redDeliciousApple, quickTurkeyWrap]
 
 
 
@@ -488,7 +496,7 @@ let jeffEats = FoodPicker(userMax_TDEE: jeff.TDEE, userMax_FAT: jeff.Fat, userMa
 
 
 //jeffEats.nextDayTrackTicker()
-jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
+jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.selectFoodClass, foodTypeRequest: GoalCategories.gainMuscle)
 jeffEats.eatlastItem()
 jeffEats.generateReccomendedFood(requestedtype: GeneratorActions.RandomFood)
 jeffEats.eatlastItem()
